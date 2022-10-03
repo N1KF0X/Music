@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MusicDownloader extends Thread{
-    private final static String REGULAR = "https:\\/\\/ru.hitmotop.com\\/get\\/music(.+).mp3";
+    private final static String REGULAR = "\\/track\\/dl(.+).mp3";
     private final static String PATH = "D:\\Music\\music.mp3";
     URL pageUrl;
     String page;
@@ -32,7 +32,7 @@ public class MusicDownloader extends Thread{
             Matcher matcher = email_pattern.matcher(page);
             matcher.find();
 
-            ReadableByteChannel byteChannel = Channels.newChannel(new URL(matcher.group()).openStream());
+            ReadableByteChannel byteChannel = Channels.newChannel(new URL("https://musify.club" + matcher.group()).openStream());
             FileOutputStream stream = new FileOutputStream(PATH);
             stream.getChannel().transferFrom(byteChannel, 0, Long.MAX_VALUE);
 
